@@ -98,22 +98,33 @@ static void shell() {
 			cmd[i] = get_char();
 			print_char(&cmd[i]);
 			if(cmd[i] == '\n' || cmd[i] == '\r') {
-				print_char('\n');
-				cmd[i] = '\0';
-//				print_str(cmd);
-				if(strcmp(cmd,"fib") == 1) {
-					if(thread_create((void *)(fibonacci_task), (void *)(5)) == -1) {
-						print_str("Fibnacci task create failed\r\n");
-					}
-					else {
-						print_str("Fibnacci task create successed\r\n");
-					}
+				if(i == 0) {
+					print_str("\n");
 					break;
 				}
 				else {
-					print_str(cmd);
-					print_str(" : command not found\r\n");
-					break;
+					print_str("\n");
+					cmd[i] = '\0';
+					if(strcmp(cmd,"fib") == 1) {
+						if(thread_create((void *)(fibonacci_task), (void *)(5)) == -1) {
+							print_str("Fibnacci task create failed\r\n");
+						}	
+						else {
+							print_str("Fibnacci task create successed\r\n");
+						}
+						break;
+					}
+					else {
+						print_str(cmd);
+						print_str(" : command not found\r\n");
+						break;
+					}
+				}
+			}
+			else if(cmd[i] == 8 || cmd[i] == 127) {
+				if(i != 0){ 
+					print_str(" \b");
+					i--;
 				}
 			}
 			i++;
