@@ -5,4 +5,6 @@
 #define STACK_SIZE 256
 #define MAX_HEAPS 4096
 
+#define MAX_STR_SIZE 256
+
 #endif
